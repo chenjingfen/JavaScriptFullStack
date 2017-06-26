@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数的定义与调用</title>
+</head>
+<body>
+<script>
+    window.onload = function () {
+        function abs(x) {
+            if (x >= 0) {
+                return x;
+            } else {
+                return -x;
+            }
+        }
+
+        /*
+         * 上述abs()函数的定义如下：
+
+         function指出这是一个函数定义；
+         abs是函数的名称；
+         (x)括号内列出函数的参数，多个参数以,分隔；
+         { ... }之间的代码是函数体，可以包含若干语句，
+         甚至可以没有任何语句。
+
+         请注意，函数体内部的语句在执行时，一旦执行到return时，
+         函数就执行完毕，并将结果返回。因此，函数内部通过条件
+         判断和循环可以实现非常复杂的逻辑。
+
+         如果没有return语句，函数执行完毕后也会返回结果，
+         只是结果为undefined。
+
+         由于JavaScript的函数也是一个对象，上述定义的abs()
+         函数实际上是一个函数对象，而函数名abs可以视为指向该函数的变量。
+
+         */
+        var abs = function (x) {
+            if (x >= 0) {
+                return x;
+            } else {
+                return -x;
+            }
+        };
+
+
+        /*
+         *  arguments
+         * JavaScript还有一个免费赠送的关键字arguments，
+         * 它只在函数内部起作用，并且永远指向当前函数的调用者
+         * 传入的所有参数。arguments；类似Array但它不是一个Array
+         * */
+        function foo(x) {
+            alert(x); // 10
+            for (var i = 0; i < arguments.length; i++) {
+                alert(arguments[i]); // 10, 20, 30
+            }
+        }
+
+        foo(10, 20, 30);
+
+
+        /*
+         * 利用arguments，你可以获得调用者传入的所有参数。
+         * 也就是说，即使函数不定义任何参数，还是可以拿到参数的值
+         * */
+        function abs() {
+            if (arguments.length === 0) {
+                return 0;
+            }
+            var x = arguments[0];
+            return x >= 0 ? x : -x;
+        }
+
+        abs(); // 0
+        abs(10); // 10
+        abs(-9); // 9
+
+        /*
+         *要把中间的参数b变为“可选”参数，就只能通过arguments判断，
+         * 然后重新调整参数并赋值。
+         * */
+        // foo(a[, b], c)
+        // 接收2~3个参数，b是可选参数，如果只传2个参数，b默认为null：
+        function foo(a, b, c) {
+            if (arguments.length === 2) {
+                // 实际拿到的参数是a和b，c为undefined
+                c = b; // 把b赋给c
+                b = null; // b变为默认值
+            }
+            // ...
+        }
+
+
+        /*
+        * rest参数
+        *
+        *
+        * 由于JavaScript函数允许接受任意个参数，
+        * 于是我们不得不用arguments来获取所有参数。
+        * */
+        function foo(a, b) {
+            var i, rest = [];
+            if (arguments.length > 2) {
+                for (i = 2; i<arguments.length; i++) {
+                    rest.push(arguments[i]);
+                }
+            }
+            console.log('a = ' + a);
+            console.log('b = ' + b);
+            console.log(rest);
+        }
+
+        /*
+        * 为了获取除了已定义参数a、b之外的参数，
+        * 我们不得不用arguments，并且循环要从索引2开始
+        * 以便排除前两个参数，这种写法很别扭，只是为了获
+        * 得额外的rest参数，有没有更好的方法？
+        *
+        * ES6标准引入了rest参数，上面的函数可以改写为：
+        * */
+        function foo(a, b,...rest) {
+           console.log("-----rest-----")
+            console.log('a = ' + a);
+            console.log('b = ' + b);
+            console.log(rest);
+        }
+
+        foo(1, 2, 3, 4, 5);
+        // 结果:
+        // a = 1
+        // b = 2
+        // Array [ 3, 4, 5 ]
+
+        foo(1);
+        // 结果:
+        // a = 1
+        // b = undefined
+        // Array []
+
+
+    }
+</script>
+</body>
+</html>
