@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RegExp</title>
+</head>
+<body>
+<script>
+    window.onload= function () {
+        /*
+        * 正则表达式：
+        *
+        * \d可有匹配一个数字
+        * \w可以匹配一个字母或数字
+        * .可以匹配任意字符
+        * 要匹配边长的字符，在正则表达式中，用*表示任意个字符(包括0个)，
+        * 用+表示至少一个字符，用?表示0个或1个字符，用{n}表示n个字符，
+        * 用{n,m}表示n-m个字符：
+        *
+        *
+        * 要做更精确的匹配，可以用[]表示范围，比如
+        * [0-9a-zA-z\_]可以匹配一个数字，字母或下划线；
+        * [0-9a-zA-Z\_]+可以匹配至少由一个数字，字母或者下划线组成的字符串，
+        * 比如'a100','1_z'等
+        *
+        * [a-zA-Z\_\$][0-9a-zA-Z\_\$]{0,19}更精确的限制了变量的长度是1-20个字符
+        *
+        * A|B可以匹配A或B，所以(J|j)ava(S|s)cript可以匹配'JavaScript'等j S大小写的四种情况
+        *
+        * ^表示行的开头，^\d表示必须以数字开头。
+        * $表示行的结束，\d$表示必须以数字结束。
+        * */
+
+
+
+        /*
+         * 分组
+         *
+         * exec()函数执行时，()里面的会作为数组输出，不需要输出的就不要放在()里面
+         *
+         *
+         * */
+
+        var re = /^\<([a-zA-Z]+[\s][a-zA-Z]+)\>\s+([a-zA-Z0-9\.]+[\@][a-zA-Z0-9]+[\.][a-z]+)$/;
+
+
+
+        // 测试:
+        var r = re.exec('<Tom Paris> tom@voyager.org');
+        if (r === null || r.toString() !== ['<Tom Paris> tom@voyager.org', 'Tom Paris', 'tom@voyager.org'].toString()) {
+            alert('测试失败!');
+        }
+        else {
+            alert('测试成功!');
+        }
+
+
+
+
+
+
+
+    }
+</script>
+</body>
+</html>
