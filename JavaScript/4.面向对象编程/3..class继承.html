@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>class继承</title>
+</head>
+<body>
+<script>
+    window.onload= function () {
+        /*
+        * 新的关键字class从ES6开始正式被引入到JavaScript中，
+        * class的目的就是让定义类更简单。
+        * */
+
+        //函数实现Student的方法
+        function Student1(name){
+            this.name=name;
+        }
+
+        Student1.prototype,hello=function(){
+            console.log("Hello, "+this.name+"!");
+        }
+
+        //class关键字编写Student
+        class Student{
+            constructor(name){
+                this.name=name;
+            }
+            hello(){
+                console.log("Hello, "+this.name+"!");
+            }
+        }
+
+        /*
+        * 比较发现,class的定义包含了构造函数constructor和定义在原型对象上的函数
+        * hello()(注意没有function关键字)，这样就避免了Student.prototype.hello = function () {...}
+        * 这样分散的代码。
+        * */
+        
+        //创建Student对象代码和之前一样
+        var xiaoming=new Student("小明");
+        console.log(xiaoming.hello());
+
+
+
+        /*
+        * class继承
+        *
+        * 用class定义对象的另一个好处就是继承更加方便。
+        * 直接通过extends来实现
+        *
+        * */
+
+        class PrimaryStudent extends Student{
+            constructor(name,grade){
+                super(name);//用super调用父类的构造方法;
+                this.grade=grade;
+            }
+
+            myGrade(){
+                console.log(('I am at grade ' + this.grade));
+            }
+        }
+        /*
+        * 注意PrimaryStudent的定义也是class关键字实现的，而extends则表示原型链对象来自于
+        * Student。
+        * 子类的构造函数可能会与父类不太相同，例如：PrimaryStudent需要name和grade两个参数，
+        * 并且需要通过super(name)来调用父类的构造函数，否则父类的name属性无法正常初始化。
+        * */
+
+        
+        var xiaoma=new PrimaryStudent("小马",2);
+        console.log(xiaoma.myGrade());
+
+
+    }
+</script>
+</body>
+</html>

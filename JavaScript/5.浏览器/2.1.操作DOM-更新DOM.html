@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更新DOM</title>
+</head>
+<body>
+<div id="test-div">
+    <div class="c-red">
+        <p id="test-p">JavaScript</p>
+        <p>Java</p>
+    </div>
+    <div class="c-red c-green">
+        <p>Python</p>
+        <p>Ruby</p>
+        <p>Swift</p>
+    </div>
+    <div class="c-green">
+        <p>Scheme</p>
+        <p>Haskell</p>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+// 选择<p>JavaScript</p>:
+        var js = document.getElementById('test-p');
+
+// 选择<p>Python</p>,<p>Ruby</p>,<p>Swift</p>:
+
+        var div = document.getElementById("test-div");
+        var arr1 = div.getElementsByClassName("c-red");
+        console.log(arr1)
+        var arr = arr1[1].children;
+
+// 选择<p>Haskell</p>:
+        var haskell = div.lastElementChild.lastElementChild;
+// 测试:
+        if (!js || js.innerText !== 'JavaScript') {
+            alert('选择JavaScript失败!');
+        } else if (!arr || arr.length !== 3 || !arr[0] || !arr[1] || !arr[2] || arr[0].innerText !== 'Python' || arr[1].innerText !== 'Ruby' || arr[2].innerText !== 'Swift') {
+            alert('选择Python,Ruby,Swift失败!');
+        } else if (!haskell || haskell.innerText !== 'Haskell') {
+            alert('选择Haskell失败!');
+        } else {
+            alert('测试通过!');
+        }
+
+
+
+
+        /*
+        * 更新DOM
+        *
+        * 修改节点的文本，方法有两种
+        *
+        * 一种是修改innerHTML属性，这个方式非常强大，
+        * 不但可以修改一个DOM节点的文本内容，还可以直接通过HTML
+        * 片段修改DOM节点内部的子树：
+        *用innerHTML时要注意，是否需要写入HTML。
+        * 如果写入的字符串是通过网络拿到了，要注意对字符编码来避免XSS攻击。
+        *
+        * 第二种是修改innerText或textContent属性，这样可以自动
+        * 对字符串进行HTML编码，保证无法设置任何HTML标签：
+        *两者的区别在于读取属性时，innerText不返回隐藏元素的文本，
+        * 而textContent返回所有文本。另外注意IE<9不支持textContent。
+        *
+        *
+        * 修改CSS也是经常需要的操作。DOM节点的style属性对应所有的CSS，
+        * 可以直接获取或设置。因为CSS允许font-size这样的名称，但它并非JavaScript有效的属性名，
+        * 所以需要在JavaScript中改写为驼峰式命名fontSize：
+        *
+        * 例如：
+        * p.style.color = '#ff0000';
+        * p.style.fontSize = '20px';
+        * p.style.paddingTop = '2em';
+        *
+        * */
+
+    }
+</script>
+</body>
+</html>
