@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作表单</title>
+</head>
+<body>
+<input type="date" value="2016-1-2">
+<input type="datetime-local" value="2015-5-15T03:49:04">
+<input type="color" value="#fff">
+
+
+<!-- HTML结构 -->
+<form id="test-register" action="#" target="_blank" onsubmit="return checkRegisterForm()">
+    <p id="test-error" style="color:red"></p>
+    <p>
+        用户名: <input type="text" id="username" name="username">
+    </p>
+    <p>
+        口令: <input type="password" id="password" name="password">
+    </p>
+    <p>
+        重复口令: <input type="password" id="password-2">
+    </p>
+    <p>
+        <button type="submit">提交</button>
+        <button type="reset">重置</button>
+    </p>
+</form>
+<script>
+    window.onload = function () {
+        /*
+         * 文本框:对应的<input type="text">用于输入文本
+         * 口令框：对应<input type="password">用于输入口令
+         * 单选框  type=radio
+         * 复选框  type=checkbox
+         * 下拉框  select
+         *  隐藏文本   type=hidden
+         *
+         *
+         *  获取值   .value 单选复选用checked
+         *  设置值类似
+         *
+         *
+         *  h5控件  ：date datetime datetime-local color等
+         * */
+
+
+        /*
+         * form提交时。return false将不会提交表单
+         * */
+
+
+        var checkRegisterForm = function () {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var password2 = document.getElementById("password-2").value;
+            var usernameRe = /^[0-9a-zA-z]{3,10}$/;
+            if (!usernameRe.test(username) || password != password2 || password.length < 6 || password.length > 20) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        (function () {
+            window.testFormHandler = checkRegisterForm;
+            var form = document.getElementById('test-register');
+            if (form.dispatchEvent) {
+                var event = new Event('submit', {
+                    bubbles: true,
+                    cancelable: true
+                });
+                form.dispatchEvent(event);
+            } else {
+                form.fireEvent('onsubmit');
+            }
+        })();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插入DOM</title>
+</head>
+<body>
+
+<ol id="test-list">
+    <li class="lang">Scheme</li>
+    <li class="lang">JavaScript</li>
+    <li class="lang">Python</li>
+    <li class="lang">Ruby</li>
+    <li class="lang">Haskell</li>
+</ol>
+
+<script>
+    window.onload= function () {
+        /*
+        * 两种方式插入新的节点
+        *
+        * 1.使用appendChild，将一个子节点添加到父节点的最后一个子节点。
+        * 2.insertBefore，将一个子节点插入到指定位置。
+        *
+        * 循环一个父节点的所有子节点，通过迭代children属性实现
+        * */
+
+
+        /*
+        * 按字符串排序的顺序对ol重新排序
+        * */
+        var li=document.getElementsByClassName("lang");
+        var innerHtml=[];
+        for(let i=0;i<li.length;i++){
+            innerHtml.push(li[i].innerText);
+        }
+        var sortInner=innerHtml.sort(function(x,y){
+            var x1= x.toUpperCase();
+            var x2= y.toUpperCase();
+            if(x1<x2){
+                return -1;
+            }
+            if(x1>x2){
+                return 1;
+            }
+            return 0;
+        });
+
+
+        for(let i=0;i<li.length;i++){
+           li[i].innerText=sortInner[i]
+        }
+
+
+    }
+</script>
+</body>
+</html>
